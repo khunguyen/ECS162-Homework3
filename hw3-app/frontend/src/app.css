@@ -77,3 +77,379 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.header {
+  max-width: 1536px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+} 
+
+/* use different variations of grid-template-areas
+ in order to make sure #item2, the main article, has priority */
+
+/* desktop view, 3col */
+@media (min-width: 1024px) {
+.grid-container {
+  grid-template-columns: 2fr 4fr 2fr; /* fr = fraction of the container*/
+  display: grid;
+  grid-template-areas: 
+    'left1 main right1'
+    'left2 main right2';
+}
+.article {
+  padding: 10px;
+}
+
+/* assign each article to a grid-area from the template above */
+
+#item1 {
+  grid-area: left1;
+}
+
+#item2 { /*item 2 is the main article */
+  grid-area: main;
+  border: hsl(0, 0%, 50%);
+  border-left-style: solid;
+  border-right-style: solid;
+  border-width: 1px;
+  padding: 15px;
+}
+#item3 {
+  grid-area: right1;
+}
+#item4 {
+  grid-area: left2;
+}
+#item5 {
+  grid-area: right2;  
+}
+
+/* top borders */
+#item4, #item5 {
+  border: hsl(0, 0%, 50%);
+  border-top-style: solid;
+  border-width: 1px;
+  padding: 15px;
+}
+
+/* title font-sizes */
+#title1 {
+  font-size: 3vw;
+}
+#title3 {
+  font-size: 2vw;
+}
+#title4, #title5 {
+  font-size: 1.75vw;
+}
+
+}
+
+/* tablet view, 2col */
+@media (max-width: 1024px) {
+.grid-container {
+  grid-template-columns: 3fr 1fr; 
+  display: grid;
+  grid-template-areas: 
+    'main1 side1'
+    'main1 side2'
+    'main2 side3';
+}
+.article {
+  padding: 5px;
+}
+
+#item1 {
+  grid-area: main2;
+  border: black;
+  border-right-style: solid;
+  border-width: 1px;
+  padding: 15px;
+}
+#title1 {
+  font-size: 3.5vw;
+}
+
+#item2 { /* make sure that #item2, the main article, has priority */
+  grid-area: main1;
+  border: hsl(0, 0%, 50%);
+  border-right-style: solid;
+  border-width: 1px;
+  padding: 15px; 
+}
+
+#item3 {
+  grid-area: side1;
+}
+#item4 {
+  grid-area: side2;
+}
+#item5 {
+  grid-area: side3;
+}
+
+/* bottom borders */
+#item3::after, #item4::after {
+  content: ""; 
+  display: block; 
+  margin: 0 auto; 
+  width: 100%; 
+  padding-top: 20px; 
+  border-bottom: 1px solid hsl(0, 0%, 50%);
+}
+
+#item1::before {
+  content: ""; 
+  display: block; 
+  margin: 0 auto; 
+  width: 100%; 
+  padding-bottom: 20px; 
+  border-top: 1px solid hsl(0, 0%, 50%);
+}
+
+}
+
+/* hide topics when screen is smaller than 1040px */
+@media (max-width: 1040px) {
+.topics {
+  display: none; 
+}
+
+.for-border::after {
+  content: ""; 
+  display: block; 
+  margin: 0 auto; 
+  width: 97%; 
+  padding-top: 20px; 
+  margin-bottom: 20px;
+  border-bottom: 3px double hsl(0, 0%, 50%);
+}
+}
+
+@media (max-width: 1026px) {
+
+.language {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+}
+}
+
+/* hide languages when screen is smaller than 876px */
+@media (max-width: 876px) {
+.language a {
+  display: none;
+}  
+}
+
+/* mobile view, 1col */
+@media (max-width: 768px) {
+.grid-container {
+  grid-template-columns: 1fr;
+  display: grid;
+  grid-template-areas:
+    'main1'
+    'main2'
+    'side1'
+    'side2'
+    'side3';
+}
+.article {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+#item1 {
+  grid-area: main2;
+  border: none;
+}
+#item2 {
+  grid-area: main1;
+  border: none;
+}
+#item3 {
+  grid-area: side1;
+}
+#item4 {
+  grid-area: side2;
+}
+#item5 {
+  grid-area: side3;
+}
+
+/* bottom border */
+#item1::after {
+  content: ""; 
+  display: block; 
+  margin: 0 auto; 
+  width: 100%; 
+  border-bottom: 1px solid hsl(0, 0%, 50%);
+}
+
+/* title font-sizes */
+#title3, #title4, #title5 {
+  font-size: 3.5vw;
+}
+
+/* hide date, today's paper, and subscribe button */
+.header p, #subscribe {
+  display: none;
+}
+}
+
+.nav_bar {
+  display: flex;
+  justify-content: center;
+  font-family: Helvetica, sans-serif;
+  font-size: 12px;
+  margin: auto 30px;
+}
+
+#search {
+  background: transparent;
+  border: none;
+  padding: 8px;
+  margin: 5px;
+  transition: background-color 0.3s;
+}
+
+#search:hover {
+  background-color: hsl(0, 0%, 97%); /* #f7f7f7 */
+  border-radius: 10%;
+  transition-timing-function: ease-in-out;
+}
+
+.language {
+  display: block;
+  margin: auto;
+  width: 100%;
+  text-align: center;    
+}
+
+.language a {
+  margin: 5px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  font-size: 11px;
+  padding: 7px;
+  padding-bottom: 5px;
+  color: black;
+  transition: background-color 0.3s;
+}
+
+.language a:hover {
+  background-color: hsl(0, 0%, 97%); /* #f7f7f7 */
+  border-radius: 10%;
+  transition-timing-function: ease-in-out;
+}
+
+#subscribe {
+  color: white;
+  background-color: pink;
+  font-family: Helvetica;
+  font-size: 11px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 12px;
+  transition: background-color 0.3s;
+}
+
+#subscribe:hover {
+  background-color: rgb(249, 157, 172);
+  transition-timing-function: ease-in-out;
+}
+
+#account {
+  background: transparent;
+  border: none;
+  margin: 5px;
+  margin-right: 12px;
+}
+
+.header p {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 13px;
+  text-align: left;
+  margin: 0px;
+  margin-left: 30px;
+}
+
+.header img {
+max-width: 502.146px;
+width: 100%;
+height: auto;
+display: block;
+margin: auto;
+padding: 0px;
+
+}
+
+.topics {
+  justify-items: center;
+  margin: auto 30px 10px 30px;
+  border: black;
+  border-bottom-style: double;
+  border-width: 3px;
+}
+
+.topics li {
+  display: inline;
+  font-family: Helvetica;
+  font-size: 13px;
+  padding: 10px;
+  margin: 0 10px;    
+}
+
+.topics li:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.topics a {
+text-decoration: none;
+color: black;
+}
+
+.grid-container {
+max-width: 1200px;
+margin: 0 auto;
+display: grid;
+gap: 1rem;
+}
+
+.grid-container img {
+width: 100%;
+height: auto;
+}
+
+#spirited-away {
+padding-top: 15px;
+padding-bottom: 15px;
+}
+
+#ponyo, #kiki {
+padding-bottom: 15px;
+}
+
+.title {
+font-size: larger;
+font-weight: bold;
+margin: 10px;
+}
+
+/* other title id font-sizes are changed in media queries since it gets a larger space in 2col and 1col view */
+#title2 {
+font-size: 3vw;
+}
+
+.footer::after {
+  content: ""; 
+  display: block; 
+  margin: 15px auto; 
+  width: 100%; 
+  border-bottom: 1px solid hsl(0, 0%, 50%);
+  border-style: double;
+}
