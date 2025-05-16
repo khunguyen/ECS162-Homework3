@@ -308,6 +308,7 @@ padding: 0px;
 }
 
 .topics {
+  display:grid;
   justify-items: center;
   margin: auto 30px 10px 30px;
   border: black;

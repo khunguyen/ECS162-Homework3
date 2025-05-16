@@ -49,7 +49,7 @@ def authorize():
 
     user_info = oauth.flask_app.parse_id_token(token, nonce=nonce)  # or use .get('userinfo').json()
     session['user'] = user_info
-    return redirect('/')
+    return redirect(f"http://localhost:5173/loggedIn")
 
 @app.route('/logout')
 def logout():

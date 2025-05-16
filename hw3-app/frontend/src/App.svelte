@@ -44,6 +44,15 @@
     let thirdCol0_2_image: string = '';
     let thirdCol0_2_snippet: string = '';
 
+
+async function handleLogin(){
+  const authUrl = 'http://localhost:8000/login'
+  window.location.href = authUrl;
+}
+
+
+
+
   onMount(async () => {
     try {
       const res = await fetch('/api/key');
@@ -78,9 +87,9 @@
         firstColumn0_1_image = firstColumn[1].multimedia.default.url;
 
         //Places random element from the response array and retrieves the headline, snippet, and url to the article image [all are string as cast in the lines above]
-        firstColumn0_2_headline = firstColumn[2].headline.main;
-        firstColumn0_2_snippet = firstColumn[2].snippet;
-        firstColumn0_2_image = firstColumn[2].multimedia.default.url;
+        firstColumn0_2_headline = firstColumn[4].headline.main;
+        firstColumn0_2_snippet = firstColumn[4].snippet;
+        firstColumn0_2_image = firstColumn[4].multimedia.default.url;
 
       })
       .catch(error => {
@@ -151,7 +160,7 @@
         </div>
 
         <button id="subscribe"><strong>SUBSCRIBE FOR $1/WEEK</strong></button>
-        <button id="account">Account</button>
+        <button on:click= {handleLogin} id="account" >Login</button>
 
     </div>
     
