@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Sidebar from './lib/sidebar.svelte';
 
   const date = new Date();
   const options: Intl.DateTimeFormatOptions = {
@@ -44,12 +45,31 @@
     let thirdCol0_2_image: string = '';
     let thirdCol0_2_snippet: string = '';
 
+ let loginButtonName;
 
-async function handleLogin(){
-  const authUrl = 'http://localhost:8000/login'
-  window.location.href = authUrl;
-}
+  if (window.location.pathname === '/loggedIn') {
+    loginButtonName = "Account";
+  } else {
+    loginButtonName = "LOG IN";
+  }
 
+  function handleLogin() {
+    if (window.location.pathname !== '/loggedIn') {
+      window.location.href = 'http://localhost:8000/login';
+    } else {
+     // NEED TO ADD THE ACOUNT STUFF HERE 
+     window.location.href = 'http://localhost:8000';
+     
+    }
+  }
+
+
+let sidebar = false; 
+let buttonCount :number[]= [108, 123, 234, 23, 42]; 
+  function toggleBar() {
+    sidebar = !sidebar;
+   // document.getElementById("mainy").style.backgroundColor = "#5A5A5A";
+  }
 
 
 
@@ -139,19 +159,21 @@ async function handleLogin(){
 
 </script>
 
+
 <svelte:head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>The New York Times
     </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </svelte:head>
 
-<main>
+<main id="mainy">
     <div class="nav_bar">
-        <button id="search"><i class="fa fa-search"></i></button>
+        <!-- <button id="search"><i class="fa fa-search"></i></button> -->
         
-        <div class="language">
+        <!-- <div class="language">
             <a href="https://www.nytimes.com/">U.S.</a> 
             <a href="https://www.nytimes.com/international/">INTERNATIONAL</a>
             <a href="https://www.nytimes.com/ca/">CANADA</a>
@@ -159,20 +181,21 @@ async function handleLogin(){
             <a href="https://cn.nytimes.com/">中文</a>
         </div>
 
-        <button id="subscribe"><strong>SUBSCRIBE FOR $1/WEEK</strong></button>
-        <button on:click= {handleLogin} id="account" >Login</button>
+        <button id="subscribe"><strong>SUBSCRIBE FOR $1/WEEK</strong></button> -->
+        <!-- <button on:click= {handleLogin} id="account" >Login</button> -->
 
     </div>
     
     <div class="header">
+      <button on:click= {handleLogin} class={loginButtonName === "LOG IN" ? "login" : "account"}>{loginButtonName}</button>
         <p id="currentDate" data-testid="current-date">{current_date}</p>
         <p>Today's Paper</p>
-
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/NewYorkTimes.svg/1280px-NewYorkTimes.svg.png" alt="The New York Times Logo" id="nyt-logo">
+         
 
     </div>
 
-    <div class="for-border"></div>
+    <!-- <div class="for-border"></div> -->
     
     <div class="topics">
         <ul>
@@ -190,6 +213,8 @@ async function handleLogin(){
             <li>The Lazy</li>
         </ul>
     </div>
+    <hr class="bold">
+    <hr class="bold">
 
     <div class="grid-container">
 
@@ -200,45 +225,66 @@ async function handleLogin(){
           <img src={firstColumn0_1_image} alt="alt">
 
           <p>{firstColumn0_1_snippet}</p>
+        
+          <button on:click={toggleBar}><i class="fa-solid fa-message"></i>{buttonCount[0]}</button>
+          {#if sidebar}
+             <Sidebar></Sidebar>
+          {/if}
+           
 
         </div>
 
         <div class="article" id="item2">
 
-          <div class="title" id="title2">{secondCol0_1_headline}</div>
+          <div class="title" id="title3">{secondCol0_1_headline}</div>
             
           <img src={secondCol0_1_image} alt="alt">
           
           <p>{secondCol0_1_snippet}</p>  
+           <button on:click={toggleBar}><i class="fa-solid fa-message"></i>{buttonCount[1]}</button>
+          {#if sidebar}
+             <Sidebar></Sidebar>
+          {/if}
 
         </div>
 
         <div class="article" id="item3">
 
           <div class="title" id="title3">{thirdCol0_1_headline}</div>
-       
           <img src={thirdCol0_1_image} alt="alt">
 
           <p>{thirdCol0_1_snippet}</p>  
+           <button on:click={toggleBar}><i class="fa-solid fa-message"></i>{buttonCount[2]}</button>
+          {#if sidebar}
+            <Sidebar  ></Sidebar>
+          {/if}
 
         </div>
 
         <div class="article" id="item4">
-          <div class="title" id="title4">{firstColumn0_2_headline}</div>
+          <div class="title" id="title3">{firstColumn0_2_headline}</div>
       
           <img src={firstColumn0_2_image} alt="alt">
 
           <p>{firstColumn0_2_snippet}</p>     
+           <button on:click={toggleBar}><i class="fa-solid fa-message"></i>{buttonCount[1]}</button>
+          {#if sidebar}
+             <Sidebar  ></Sidebar>
+          {/if}
 
       </div>
 
         <div class="article" id="item5">
 
-          <div class="title" id="title5">{thirdCol0_2_headline}</div>
+          <div class="title" id="title3">{thirdCol0_2_headline}</div>
            
           <img src={thirdCol0_2_image} alt="alt">
 
           <p>{thirdCol0_2_snippet}</p>  
+           <button on:click={toggleBar}><i class="fa-solid fa-message"></i>{buttonCount[1]}</button>
+          {#if sidebar}
+             <Sidebar  ></Sidebar>
+          {/if}
 
         </div>
     </div>
