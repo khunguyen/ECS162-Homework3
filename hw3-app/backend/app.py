@@ -1,16 +1,22 @@
-from flask import Flask, jsonify, redirect, url_for, session
+from flask import Flask, jsonify, redirect, request, url_for, session
+from flask_cors import CORS
 from authlib.integrations.flask_client import OAuth
 from authlib.common.security import generate_token
+from pymongo import MongoClient
 import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
+CORS(app)
 
 oauth = OAuth(app)
 
 nonce = generate_token()
 
+client = MongoClient('mongodb://root:rootpassword@localhost:27017/mydatabase?authSource=admin')
+db = client["mydatabase"]
+comments = db["comments"]
 
 oauth.register(
     name=os.getenv('OIDC_CLIENT_NAME'),
@@ -24,6 +30,12 @@ oauth.register(
     device_authorization_endpoint="http://dex:5556/device/code",
     client_kwargs={'scope': 'openid email profile'}
 )
+
+@app.route('/api/inputData')
+def addData():
+    return jsonify({'return_key': 'cringe class'})
+
+
 
 @app.route('/api/key')
 def get_key():
