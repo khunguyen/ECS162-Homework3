@@ -31,8 +31,9 @@ oauth.register(
     client_kwargs={'scope': 'openid email profile'}
 )
 
-@app.route('/users', methods=['GET'])
-def get_users():
+# code from lecture Notes -> updated it so it works for comments section in mongo comprass 
+@app.route('/api/comments', methods=['GET'])
+def getComments():
     differentComment = list(comments.find())
     for comment in differentComment:
         comment['_id'] = str(comment['_id'])

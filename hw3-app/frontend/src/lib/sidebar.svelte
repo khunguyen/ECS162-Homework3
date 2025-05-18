@@ -3,19 +3,30 @@
   export let title; 
   export let close;
   let inputGiven = ""; 
-  var newComents : string[] = []; 
 
-  function canceling(){
-    inputGiven = ""; 
+  // gpt helped me understand the struture of this more 
+ type comment = {
+    _id: string;
+    comment:string;
+ };
+  var newComents : comment[] = []; 
+
+  
+  // From mongo being able to keep the comments even if they have been refreshed or close the side bar works now :DDDD
+  async function loadComments() {
+    try {
+      const res = await fetch('/api/comments'); // basically get the stuff inside the comments section of the database 
+      if (res.ok) {
+        newComents = await res.json(); // add the list of comments to this 
+      } else {
+        console.error("Failed to load comments:", res.status);
+      }
+    } catch (error) {
+      console.error("Error loading comments:", error);
+    }
   }
 
-  /**
-   * @app.route("/<user_id>", methods=["GET"])
-    def get_user(user_id):
-      user = repo.get_user(user_id)
-      return jsonify(user or {})
-
-   */
+  
   async function addComment(){
   try {
     const res = await fetch('/api/inputData', {
@@ -27,7 +38,8 @@
     });
     if (res.ok){
      // newComents.push(inputGiven); 
-     newComents = [...newComents, inputGiven];
+     //newComents = [...newComents, inputGiven];
+     await loadComments();
       console.log("Comment added successfully");
       console.log(newComents);
     } else {
@@ -37,6 +49,10 @@
     console.error('Failed to add comment:', error);
   }
 }
+
+  function canceling(){
+    inputGiven = ""; 
+  }
  
 </script>
 
@@ -56,16 +72,12 @@
 
         <div class="comments">
           {#each newComents as comment}
-            <p>{comment}</p>
+            <p>{comment.comment}</p> 
           {/each}
         </div>
 
     </div>
  
-
-
-
-
 <style>
     /* body {
   font-family: "Lato", sans-serif;
