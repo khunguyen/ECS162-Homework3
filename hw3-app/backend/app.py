@@ -31,6 +31,14 @@ oauth.register(
     client_kwargs={'scope': 'openid email profile'}
 )
 
+@app.route('/users', methods=['GET'])
+def get_users():
+    differentComment = list(comments.find())
+    for comment in differentComment:
+        comment['_id'] = str(comment['_id'])
+    return jsonify(differentComment)
+
+
 @app.route('/api/inputData', methods=['POST'])
 def addData():
     data = request.json or {}

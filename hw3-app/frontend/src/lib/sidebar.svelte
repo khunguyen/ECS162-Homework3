@@ -1,7 +1,42 @@
-<script>
+<script lang="ts">
   export let count;
   export let title; 
   export let close;
+  let inputGiven = ""; 
+  var newComents : string[] = []; 
+
+  function canceling(){
+    inputGiven = ""; 
+  }
+
+  /**
+   * @app.route("/<user_id>", methods=["GET"])
+    def get_user(user_id):
+      user = repo.get_user(user_id)
+      return jsonify(user or {})
+
+   */
+  async function addComment(){
+  try {
+    const res = await fetch('/api/inputData', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        comment: inputGiven 
+      })
+    });
+    if (res.ok){
+     // newComents.push(inputGiven); 
+     newComents = [...newComents, inputGiven];
+      console.log("Comment added successfully");
+      console.log(newComents);
+    } else {
+      console.error("Server responded with", res.status);
+    }
+  } catch (error) {
+    console.error('Failed to add comment:', error);
+  }
+}
  
 </script>
 
@@ -13,11 +48,18 @@
           <h1>Comments</h1>
           <p>{count}</p>
       </div>
-        <input type="text" placeholder="Share your thoughts">
+        <input type="text" placeholder="Share your thoughts" bind:value={inputGiven}>
         <div class="buttons">
-            <button class="send">CANCEL</button>
-            <button class="send">SUBMIT</button>
+            <button on:click={canceling} class="send">CANCEL</button>
+            <button on:click={addComment} class="send">SUBMIT</button>
         </div>
+
+        <div class="comments">
+          {#each newComents as comment}
+            <p>{comment}</p>
+          {/each}
+        </div>
+
     </div>
  
 

@@ -164,24 +164,24 @@ let mainTile = "";
     sidebar = false; 
   }
 
-async function addComment(){
-  try {
-    const res = await fetch('/api/inputData', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        comment: "This is a test comment" 
-      })
-    });
-    if (res.ok){
-      console.log("Comment added successfully");
-    } else {
-      console.error("Server responded with", res.status);
-    }
-  } catch (error) {
-    console.error('Failed to add comment:', error);
-  }
-}
+// async function addComment(){
+//   try {
+//     const res = await fetch('/api/inputData', {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({
+//         comment: "This is funny" 
+//       })
+//     });
+//     if (res.ok){
+//       console.log("Comment added successfully");
+//     } else {
+//       console.error("Server responded with", res.status);
+//     }
+//   } catch (error) {
+//     console.error('Failed to add comment:', error);
+//   }
+// }
 </script>
 
 
@@ -250,7 +250,7 @@ async function addComment(){
           <img src={firstColumn0_1_image} alt="alt">
 
           <p>{firstColumn0_1_snippet}</p>
-          <button on:click={addComment}>CLICK THIS</button>
+          <!-- <button on:click={addComment}>CLICK THIS</button> -->
         
           <button on:click={() => toggleBar(buttonCount[0], firstColumn0_1_headline)}><i class="fa-solid fa-message"></i>{buttonCount[0]}</button>
          
