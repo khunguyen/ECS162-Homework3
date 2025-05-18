@@ -14,7 +14,7 @@ oauth = OAuth(app)
 
 nonce = generate_token()
 
-client = MongoClient('mongodb://root:rootpassword@localhost:27017/mydatabase?authSource=admin')
+client = MongoClient('mongodb://root:rootpassword@mongo:27017/mydatabase?authSource=admin')
 db = client["mydatabase"]
 comments = db["comments"]
 
@@ -31,11 +31,14 @@ oauth.register(
     client_kwargs={'scope': 'openid email profile'}
 )
 
-@app.route('/api/inputData')
+@app.route('/api/inputData', methods=['POST'])
 def addData():
-    return jsonify({'return_key': 'cringe class'})
-
-
+    data = request.json or {}
+    comment_text = data.get('comment', "This is a test comment")
+    comments.insert_one({
+        'comment': comment_text,
+    })
+    return '', 201
 
 @app.route('/api/key')
 def get_key():
