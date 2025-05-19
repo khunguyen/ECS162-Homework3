@@ -92,9 +92,9 @@
     }
   }
 
-  async function replyComment(object_ID : string){
+  // async function replyComment(object_ID : string){
 
-  }
+  // }
 
  
 </script>
@@ -119,7 +119,7 @@
             {#if modPriveleges}
               <button on:click={() => deleteComment(comment._id)}>Delete</button>
             {/if}
-            <button>Reply</button>
+            <!-- <button>Reply</button> -->
           {/each}
         </div>
 
