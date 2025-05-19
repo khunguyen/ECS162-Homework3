@@ -1,0 +1,3 @@
+Github Repository: https://github.com/khunguyen/ECS162-Homework3/tree/main
+
+Github Clone: https://github.com/khunguyen/ECS162-Homework3.git
