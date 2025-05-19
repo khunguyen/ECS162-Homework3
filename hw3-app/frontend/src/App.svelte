@@ -46,20 +46,20 @@
     let thirdCol0_2_snippet: string = '';
 
  let loginButtonName;
+ let pathname = window.location.pathname
 
-  if (window.location.pathname === '/loggedIn') {
+  if (pathname.startsWith('/loggedIn/')) {
     loginButtonName = "Account";
   } else {
     loginButtonName = "LOG IN";
   }
 
   function handleLogin() {
-    if (window.location.pathname !== '/loggedIn') {
+    if (!(pathname.startsWith('/loggedIn/'))) {
       window.location.href = 'http://localhost:8000/login';
     } else {
      // NEED TO ADD THE ACOUNT STUFF HERE 
      window.location.href = 'http://localhost:8000';
-     
     }
   }
 

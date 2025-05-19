@@ -3,6 +3,7 @@ from flask_cors import CORS
 from authlib.integrations.flask_client import OAuth
 from authlib.common.security import generate_token
 from pymongo import MongoClient
+from bson import ObjectId
 import os
 
 app = Flask(__name__)
@@ -52,6 +53,18 @@ def addData(commentID):
     })
     return '', 201
 
+@app.route('/api/InputData/DeleteComment/<string:Object_ID>', methods=['PATCH'])
+def deleteComment(Object_ID):
+    _id = ObjectId(Object_ID)
+    comments.find_one_and_update(
+        {'_id': _id}, 
+        {"$set": {'comment': '[DELETED]'}}
+    )
+    return '', 201
+
+@app.route('/api/InputData/replyComment/<string:Object_ID>', methods=['POST'])
+
+
 @app.route('/api/key')
 def get_key():
     return jsonify({'apiKey': os.getenv('NYT_API_KEY')})
@@ -76,8 +89,8 @@ def authorize():
 
     user_info = oauth.flask_app.parse_id_token(token, nonce=nonce)  # or use .get('userinfo').json()
     session['user'] = user_info
-    return redirect(f"http://localhost:5173/loggedIn")
-
+    return redirect(f"http://localhost:5173/loggedIn/{user_info['email']}")
+  
 @app.route('/logout')
 def logout():
     session.clear()

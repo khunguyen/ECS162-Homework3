@@ -2,9 +2,25 @@
   export let count;
   export let title; 
   export let close;
-  export let idComment : number; 
+  export let idComment : number;
   let inputGiven = ""; 
 
+  let userEmail = null;
+  const modEmail = 'moderator@hw3.com';
+  let modPriveleges = false;
+
+  onMount(async () => {
+    if (window.location.pathname.startsWith('/loggedIn/')) {
+      const pathComponents = window.location.pathname.split('/');
+      //LLM helped me with understanding how decodeURIComponent worked and was the best option to split the pathname into separate parts
+      userEmail = decodeURIComponent(pathComponents[2]);
+      if(userEmail === modEmail){
+        modPriveleges = true;
+      }
+      console.log("The email (SIDEBAR): ",  userEmail, " with access of: ", modPriveleges);
+    } else {
+  }
+  });
 
   // gpt helped me understand the struture of this more 
  type comment = {
@@ -33,31 +49,53 @@
   }
 
   async function addComment(){
-  try {
-    const res = await fetch(`/api/inputData/${idComment}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        comment: inputGiven 
-      })
-    });
-    if (res.ok){
-     // newComents.push(inputGiven); 
-     //newComents = [...newComents, inputGiven];
-     await getComment();
-      console.log("Comment added successfully");
-      console.log(newComents);
-    } else {
-      console.error("Server responded with", res.status);
+    try {
+      const res = await fetch(`/api/inputData/${idComment}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          comment: inputGiven 
+        })
+      });
+      if (res.ok){
+      // newComents.push(inputGiven); 
+      //newComents = [...newComents, inputGiven];
+      await getComment();
+        console.log("Comment added successfully");
+        console.log(newComents);
+      } else {
+        console.error("Server responded with", res.status);
+      }
+    } catch (error) {
+      console.error('Failed to add comment:', error);
     }
-  } catch (error) {
-    console.error('Failed to add comment:', error);
-  }
 }
 
   function canceling(){
     inputGiven = ""; 
   }
+
+  async function deleteComment(object_ID: string){
+    try {
+      const res = await fetch(`/api/InputData/DeleteComment/${object_ID}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      if (res.ok){
+        await getComment();
+        console.log("Successfully deleted comment");
+      } else {
+        console.error("Server responded with", res.status);
+      }
+    } catch (error) {
+      console.error('Failed to delete comment:', error);
+    }
+  }
+
+  async function replyComment(object_ID : string){
+
+  }
+
  
 </script>
 <!-- makes it look better -->
@@ -78,6 +116,10 @@
         <div class="comments">
           {#each newComents as comment}
             <p>{comment.comment}</p>
+            {#if modPriveleges}
+              <button on:click={() => deleteComment(comment._id)}>Delete</button>
+            {/if}
+            <button>Reply</button>
           {/each}
         </div>
 
@@ -176,6 +218,11 @@
         color: white;
         border: transparent;
       }
+  }
+
+  .comments{
+    display:grid
+    
   }
 
 }
