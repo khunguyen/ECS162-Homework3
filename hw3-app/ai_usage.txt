@@ -1,0 +1,29 @@
+These are the resources used: 
+pytest : https://flask.palletsprojects.com/en/stable/testing/ and https://docs.pytest.org/en/stable/how-to/index.html 
+dex: TAs helped with the code for routing it 
+Frontend : 
+1. Code from hw 2
+2. greeksforgreek website for help with css for the side bar 
+3. svelte docs for understanding components for creating the sidebar component
+4. Chatgpt:
+    a. was used for debugging whenever there would be random errors 
+    b. helped with the overlay inside the sidebar component, learnt more about z-index and how it worked and help with the css for overlay
+    c. learnt how I can export variables so the app.svelte can send the sidebar component the variables 
+    d. learnt about bind 
+ 
+Backend:
+1. For GET used prof code from lecture about flask + mongo 
+2. Chatgpt: 
+    a. help me understand more about the comments inside the mongo compass database and now to create different elements 
+    b. random debugging when the comments won't apper and needed to add unique id which I did myself 
+
+
+Overall Interms of AI usage: 
+We mostly used it for debugging and to understand the errors we were getting BECAUSE we didn't learn about this. A lot of it was struggling with 
+understanding the structure of mongodb compass and also the backend which was only brifely taught to us. 
+
+
+Extra: 
+In terms of the pytests they are all very basic because no one went over how to actually make the tests with pytests.
+I tried to test more advanced stuff like if the routing worked HOWEVER the dockerfile won't allow for the connection with the pytest file
+created and with the mongodb connection, so I was unable to test more advanced test cases. 

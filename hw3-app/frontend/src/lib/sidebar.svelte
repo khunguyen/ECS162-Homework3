@@ -125,19 +125,9 @@
 
     </div>
  
-
-
-
-
 <style>
-    /* body {
-  font-family: "Lato", sans-serif;
-  background-color: antiquewhite;
-}
-.main{
-    background-color: aquamarine;
-} */
 
+/* needed help with the overlay */
   .overlay {
     height: 100%;
     width: 100%;
@@ -222,7 +212,6 @@
 
   .comments{
     display:grid
-    
   }
 
 }
