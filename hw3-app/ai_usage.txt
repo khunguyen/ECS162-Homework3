@@ -10,9 +10,11 @@ Frontend :
     b. helped with the overlay inside the sidebar component, learnt more about z-index and how it worked and help with the css for overlay
     c. learnt how I can export variables so the app.svelte can send the sidebar component the variables 
     d. learnt about bind 
+    e. Learned how to properly extract the user email from the windows.location.path by using decodeURIComponent(). Did not understand how to do so using other online sources
  
 Backend:
 1. For GET used prof code from lecture about flask + mongo 
+2. We used GeeksForGeeks to learn how to properly to the find_one_and_update() MongoDB function when deleting comments
 2. Chatgpt: 
     a. help me understand more about the comments inside the mongo compass database and now to create different elements 
     b. random debugging when the comments won't apper and needed to add unique id which I did myself 

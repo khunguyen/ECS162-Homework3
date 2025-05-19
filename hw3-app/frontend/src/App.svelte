@@ -168,24 +168,6 @@ let commentId = 0;
     sidebar = false; 
   }
 
-// async function addComment(){
-//   try {
-//     const res = await fetch('/api/inputData', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({
-//         comment: "This is funny" 
-//       })
-//     });
-//     if (res.ok){
-//       console.log("Comment added successfully");
-//     } else {
-//       console.error("Server responded with", res.status);
-//     }
-//   } catch (error) {
-//     console.error('Failed to add comment:', error);
-//   }
-// }
 </script>
 
 
@@ -217,11 +199,10 @@ let commentId = 0;
     
     <div class="header">
       <button on:click= {handleLogin} class={loginButtonName === "LOG IN" ? "login" : "account"}>{loginButtonName}</button>
-        <p id="currentDate" data-testid="current-date">{current_date}</p>
-        <p>Today's Paper</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/NewYorkTimes.svg/1280px-NewYorkTimes.svg.png" alt="The New York Times Logo" id="nyt-logo">
-         
-
+      <p id="currentDate" data-testid="current-date">{current_date}</p>
+      <p>Today's Paper</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/NewYorkTimes.svg/1280px-NewYorkTimes.svg.png" alt="The New York Times Logo" id="nyt-logo">
+        
     </div>
 
     <!-- <div class="for-border"></div> -->
@@ -254,7 +235,6 @@ let commentId = 0;
           <img src={firstColumn0_1_image} alt="alt">
 
           <p>{firstColumn0_1_snippet}</p>
-          <!-- <button on:click={addComment}>CLICK THIS</button> -->
         
           <button on:click={() => toggleBar(buttonCount[0], firstColumn0_1_headline,1)}><i class="fa-solid fa-message"></i>{buttonCount[0]}</button>
          

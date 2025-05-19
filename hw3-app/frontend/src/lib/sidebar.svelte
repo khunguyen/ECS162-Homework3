@@ -27,8 +27,8 @@
     _id: string;
     comment:string;
  };
-  var newComents : comment[] = []; 
-   import { onMount } from 'svelte';
+  var newComents : comment[] = [];   
+  import { onMount } from 'svelte';
    // this will make the comments show up as soon as you open the side bar instead of when you click submit
   onMount(() => {
     getComment();
@@ -58,8 +58,6 @@
         })
       });
       if (res.ok){
-      // newComents.push(inputGiven); 
-      //newComents = [...newComents, inputGiven];
       await getComment();
         console.log("Comment added successfully");
         console.log(newComents);
@@ -119,7 +117,7 @@
             {#if modPriveleges}
               <button on:click={() => deleteComment(comment._id)}>Delete</button>
             {/if}
-            <!-- <button>Reply</button> -->
+            <button>Reply</button>
           {/each}
         </div>
 

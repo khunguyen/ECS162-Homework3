@@ -56,13 +56,12 @@ def addData(commentID):
 @app.route('/api/InputData/DeleteComment/<string:Object_ID>', methods=['PATCH'])
 def deleteComment(Object_ID):
     _id = ObjectId(Object_ID)
+    #Found information of the find_one_and_update mongoDB function online from the GeeksForGeeks website
     comments.find_one_and_update(
         {'_id': _id}, 
-        {"$set": {'comment': '[DELETED]'}}
+        {"$set": {'comment': '[COMMENT REMOVED BY MODERATOR!]'}}
     )
     return '', 201
-
-@app.route('/api/InputData/replyComment/<string:Object_ID>', methods=['POST'])
 
 
 @app.route('/api/key')
