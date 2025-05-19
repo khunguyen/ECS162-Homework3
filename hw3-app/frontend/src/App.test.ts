@@ -6,20 +6,21 @@ test('App', async () =>{
     render(App);
 });
 
-// test('should display today date', () => {
-//     const { getByTestId } = render(App);
+test('should display today date', () => {
+    const { getAllByTestId } = render(App);
   
-//     const currentDateElement = getByTestId('current-date');
+    const currentDateElement = getAllByTestId('current-date');
 
-//     const today = new Date().toLocaleDateString('en-US', {
-//       weekday: 'long',
-//       month: 'long',
-//       day: 'numeric',
-//       year: 'numeric'
-//     });
+        const today = new Date().toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
   
-//     expect(currentDateElement.textContent).toBe(today);
-//   });
+    expect(currentDateElement[0].textContent).toBe(today);
+
+  });
 
   interface Multimedia {
     url: string;
