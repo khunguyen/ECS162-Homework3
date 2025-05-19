@@ -154,10 +154,14 @@ let sidebar = false;
 let buttonCount :number[]= [108, 123, 234, 23, 42]; 
 let counting = 0; 
 let mainTile = "";
-  function toggleBar(count :number, title: string) {
+let commentId = 0; 
+
+
+  function toggleBar(count :number, title: string, idNum: number) {
     sidebar = true; // !sidebar;
    counting = count; 
    mainTile = title; 
+   commentId = idNum; 
    // document.getElementById("mainy").style.backgroundColor = "#5A5A5A";
   }
   function closeBar(){
@@ -252,7 +256,7 @@ let mainTile = "";
           <p>{firstColumn0_1_snippet}</p>
           <!-- <button on:click={addComment}>CLICK THIS</button> -->
         
-          <button on:click={() => toggleBar(buttonCount[0], firstColumn0_1_headline)}><i class="fa-solid fa-message"></i>{buttonCount[0]}</button>
+          <button on:click={() => toggleBar(buttonCount[0], firstColumn0_1_headline,1)}><i class="fa-solid fa-message"></i>{buttonCount[0]}</button>
          
 
         </div>
@@ -264,7 +268,7 @@ let mainTile = "";
           <img src={secondCol0_1_image} alt="alt">
           
           <p>{secondCol0_1_snippet}</p>  
-           <button on:click={() => toggleBar(buttonCount[1], secondCol0_1_headline)}><i class="fa-solid fa-message"></i>{buttonCount[1]}</button>
+           <button on:click={() => toggleBar(buttonCount[1], secondCol0_1_headline,2)}><i class="fa-solid fa-message"></i>{buttonCount[1]}</button>
          
         </div>
 
@@ -274,7 +278,7 @@ let mainTile = "";
           <img src={thirdCol0_1_image} alt="alt">
 
           <p>{thirdCol0_1_snippet}</p>  
-           <button on:click={() => toggleBar(buttonCount[2], thirdCol0_1_headline)}><i class="fa-solid fa-message"></i>{buttonCount[4]}</button>
+           <button on:click={() => toggleBar(buttonCount[2], thirdCol0_1_headline,3)}><i class="fa-solid fa-message"></i>{buttonCount[4]}</button>
          
 
         </div>
@@ -285,7 +289,7 @@ let mainTile = "";
           <img src={firstColumn0_2_image} alt="alt">
 
           <p>{firstColumn0_2_snippet}</p>     
-           <button on:click={() => toggleBar(buttonCount[3],firstColumn0_2_headline)}><i class="fa-solid fa-message"></i>{buttonCount[4]}</button>
+           <button on:click={() => toggleBar(buttonCount[3],firstColumn0_2_headline,4)}><i class="fa-solid fa-message"></i>{buttonCount[4]}</button>
           
 
       </div>
@@ -297,10 +301,10 @@ let mainTile = "";
           <img src={thirdCol0_2_image} alt="alt">
 
           <p>{thirdCol0_2_snippet}</p>  
-           <button on:click={() => toggleBar(buttonCount[4], thirdCol0_2_headline)}><i class="fa-solid fa-message"></i>{buttonCount[4]}</button>
+           <button on:click={() => toggleBar(buttonCount[4], thirdCol0_2_headline,5)}><i class="fa-solid fa-message"></i>{buttonCount[4]}</button>
          
            {#if sidebar}
-             <Sidebar count={counting} title={mainTile} close={closeBar}></Sidebar>
+             <Sidebar count={counting} title={mainTile} close={closeBar} idComment={commentId}></Sidebar>
           {/if}
 
         </div>

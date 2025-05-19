@@ -2,7 +2,9 @@
   export let count;
   export let title; 
   export let close;
+  export let idComment : number; 
   let inputGiven = ""; 
+
 
   // gpt helped me understand the struture of this more 
  type comment = {
@@ -10,12 +12,16 @@
     comment:string;
  };
   var newComents : comment[] = []; 
-
+   import { onMount } from 'svelte';
+   // this will make the comments show up as soon as you open the side bar instead of when you click submit
+  onMount(() => {
+    getComment();
+  });
   
   // From mongo being able to keep the comments even if they have been refreshed or close the side bar works now :DDDD
-  async function loadComments() {
+  async function getComment() {
     try {
-      const res = await fetch('/api/comments'); // basically get the stuff inside the comments section of the database 
+      const res = await fetch(`/api/comments/${idComment}`); // basically get the stuff inside the comments section of the database 
       if (res.ok) {
         newComents = await res.json(); // add the list of comments to this 
       } else {
@@ -26,10 +32,9 @@
     }
   }
 
-  
   async function addComment(){
   try {
-    const res = await fetch('/api/inputData', {
+    const res = await fetch(`/api/inputData/${idComment}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -39,7 +44,7 @@
     if (res.ok){
      // newComents.push(inputGiven); 
      //newComents = [...newComents, inputGiven];
-     await loadComments();
+     await getComment();
       console.log("Comment added successfully");
       console.log(newComents);
     } else {
@@ -55,7 +60,7 @@
   }
  
 </script>
-
+<!-- makes it look better -->
 <div class="overlay" on:click={close}></div>
     <div class="sidenav">
       <h3>{title}</h3>
@@ -72,12 +77,16 @@
 
         <div class="comments">
           {#each newComents as comment}
-            <p>{comment.comment}</p> 
+            <p>{comment.comment}</p>
           {/each}
         </div>
 
     </div>
  
+
+
+
+
 <style>
     /* body {
   font-family: "Lato", sans-serif;

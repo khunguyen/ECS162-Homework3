@@ -32,20 +32,23 @@ oauth.register(
 )
 
 # code from lecture Notes -> updated it so it works for comments section in mongo comprass 
-@app.route('/api/comments', methods=['GET'])
-def getComments():
-    differentComment = list(comments.find())
+@app.route('/api/comments/<string:commentID>', methods=['GET'])
+def getComments(commentID):
+    #differentComment = list(comments.find())
+    differentComment = list(comments.find({"commentID": commentID})) # need to check which id it's 
     for comment in differentComment:
         comment['_id'] = str(comment['_id'])
     return jsonify(differentComment)
 
 
-@app.route('/api/inputData', methods=['POST'])
-def addData():
+# needed to add commentID so that it would send the right comments to right sidebar
+@app.route('/api/inputData/<string:commentID>', methods=['POST'])
+def addData(commentID):
     data = request.json or {}
     comment_text = data.get('comment', "This is a test comment")
     comments.insert_one({
         'comment': comment_text,
+        'commentID': commentID # added this section to mongo
     })
     return '', 201
 
